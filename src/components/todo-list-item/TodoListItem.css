@@ -1,0 +1,11 @@
+.TodoListItem {
+
+}
+
+.done {
+    text-decoration-line: line-through;
+}
+
+.favorite {
+    color: greenyellow;
+}
