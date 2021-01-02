@@ -6,10 +6,10 @@ import {connect} from "react-redux";
 class TodoListItem extends React.Component {
     render() {
         const classes = ['col-8', 'formatted']
-        if (this.props.todo.classes.done) {
+        if (this.props.done) {
             classes.push('done')
         }
-        if (this.props.todo.classes.favorite) {
+        if (this.props.favorite) {
             classes.push('favorite')
         }
         return (

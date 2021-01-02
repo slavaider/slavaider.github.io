@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import TodoList from "../todo-list/TodoList";
+import TodoList from "../todoList/TodoList";
 
 const App = () => (
     <div className="App container">

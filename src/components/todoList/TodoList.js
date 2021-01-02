@@ -4,7 +4,7 @@ import AppAddForm from "../app-add-form/AppAddForm";
 import AppHeader from "../app-header/AppHeader";
 import SearchPanel from "../search-panel/SearchPanel";
 import {connect} from "react-redux";
-import TodoListItem from "../todo-list-item/TodoListItem";
+import TodoListItem from "../todoListItem/TodoListItem";
 
 
 class TodoList extends React.Component {
@@ -41,11 +41,14 @@ class TodoList extends React.Component {
                     {filtered_todo_list.length !== 0 ?
                         filtered_todo_list.map((todo => (
                                 <li key={todo.id} className="list-group-item">
-                                    <TodoListItem todo={todo}/>
+                                    <TodoListItem
+                                        favorite={todo.classes.favorite}
+                                        done={todo.classes.done}
+                                        todo={todo}
+                                    />
                                 </li>
                             )
-                        )) : <h3 className='text-center'>Нет найденных элементов</h3>
-                    }
+                        )) : <h3 className='text-center'>Нет найденных элементов</h3>}
                 </ul>
                 <AppAddForm/>
             </div>

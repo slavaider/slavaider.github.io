@@ -17,17 +17,18 @@ export default function TodoListReducer(state = initialState, action) {
                 todo_list: state.todo_list.filter(todo => todo.id !== action.key)
             }
         case ON_DONE: {
-            const todo = state.todo_list.find((todo) => todo.id === action.key)
-            todo.classes.done = !todo.classes.done
+            const todo_list = [...state.todo_list]
+            const item = todo_list.find(todo => todo.id === action.key)
+            item.classes.done = !item.classes.done
             return {
                 ...state,
-                [action.key]: todo
+                todo_list
             }
         }
         case ON_FAVORITE: {
             const todo_list = [...state.todo_list]
             const item = todo_list.find(todo => todo.id === action.key)
-            item.classes.favorite = true
+            item.classes.favorite = !item.classes.favorite
             return {
                 ...state,
                 todo_list
