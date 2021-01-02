@@ -1,9 +1,10 @@
 import './TodoList.css';
 import React from "react";
-import TodoListItem from "../todo-list-item/TodoListItem";
 import AppAddForm from "../app-add-form/AppAddForm";
 import AppHeader from "../app-header/AppHeader";
 import SearchPanel from "../search-panel/SearchPanel";
+import {connect} from "react-redux";
+import TodoListItem from "../todo-list-item/TodoListItem";
 
 
 class TodoList extends React.Component {
@@ -12,35 +13,7 @@ class TodoList extends React.Component {
         this.state = {
             filter_type: '',
             filter_text: '',
-            todos: [
-                {text: 'awdadawdpwokadpwadaw1', id: Math.random(), classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw2', id: Math.random(), classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw3', id: Math.random(), classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw4', id: Math.random(), classes: [{done: false, favorite: false}]},
-            ],
         }
-    }
-
-    deleteItem = (key) => {
-        this.setState({todos: this.state.todos.filter(todo => todo.id !== key)})
-    }
-    onDone = (key) => {
-        const todos = this.state.todos
-        const todo = todos.find((todo) => todo.id === key)
-        todo.classes.done = true
-        this.setState({todos})
-    }
-    onFavorite = (key) => {
-        const todos = this.state.todos
-        const todo = todos.find((todo) => todo.id === key)
-        todo.classes.favorite = true
-        this.setState({todos})
-    }
-
-    onAddItem = (todo) => {
-        const todos = this.state.todos
-        todos.push(todo)
-        this.setState(todos)
     }
 
     onFilter = (filter) => {
@@ -48,7 +21,7 @@ class TodoList extends React.Component {
     }
 
     render() {
-        const filteredTodos = this.state.todos.filter((todo) => {
+        const filtered_todo_list = this.props.todos.filter((todo) => {
             switch (this.state.filter_type) {
                 case'favorite':
                     return todo.classes.favorite
@@ -60,33 +33,30 @@ class TodoList extends React.Component {
         }).filter(todo => {
             return todo.text.indexOf(this.state.filter_text) !== -1
         })
-
         return (
             <div className="TodoList mt-2">
-                <div className="d-flex justify-content-between">
-                    <h1>TodoApp</h1>
-                    <AppHeader todos={this.state.todos}/>
-                </div>
+                <AppHeader todos={this.props.todos}/>
                 <SearchPanel onFilterHandler={(filter) => this.onFilter(filter)}/>
                 <ul className='list-group'>
-                    {filteredTodos.length !== 0 ?
-                        filteredTodos.map((todo =>
-                                (
-                                    <TodoListItem
-                                        deleteItemHandler={(key) => this.deleteItem.bind(this, key)}
-                                        doneItemHandler={(key) => this.onDone.bind(this, key)}
-                                        favoriteItemHandler={(key) => this.onFavorite.bind(this, key)}
-                                        key={todo.id}
-                                        todo={todo}
-                                    />
-                                )
+                    {filtered_todo_list.length !== 0 ?
+                        filtered_todo_list.map((todo => (
+                                <li key={todo.id} className="list-group-item">
+                                    <TodoListItem todo={todo}/>
+                                </li>
+                            )
                         )) : <h3 className='text-center'>Нет найденных элементов</h3>
                     }
                 </ul>
-                <AppAddForm onAddItemHandler={(todo) => this.onAddItem(todo)}/>
+                <AppAddForm/>
             </div>
         );
     }
 }
 
-export default TodoList;
+function mapStateToProps(state) {
+    return {
+        todos: state.todos.todo_list,
+    };
+}
+
+export default connect(mapStateToProps, null)(TodoList);

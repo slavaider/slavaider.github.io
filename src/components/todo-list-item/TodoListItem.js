@@ -1,38 +1,51 @@
 import './TodoListItem.css';
 import React from "react";
+import {deleteItem, onDone, onFavorite} from "../../store/actions/actions";
+import {connect} from "react-redux";
 
-const TodoListItem = (props) => {
-    const classes = ['col-9','formatted']
-    if (props.todo.classes.done) {
-        classes.push('done')
-    }
-    if (props.todo.classes.favorite) {
-        classes.push('favorite')
-    }
-    return (
-        <div className="TodoListItem">
-            <li className="list-group-item">
-                <div className="d-flex justify-content-between">
+class TodoListItem extends React.Component {
+    render() {
+        const classes = ['col-8', 'formatted']
+        if (this.props.todo.classes.done) {
+            classes.push('done')
+        }
+        if (this.props.todo.classes.favorite) {
+            classes.push('favorite')
+        }
+        return (
+            <>
+                <span className="d-flex justify-content-between">
                     <code style={{cursor: 'pointer'}}
-                          onClick={props.doneItemHandler(props.todo.id)}
+                          onClick={this.props.onDone.bind(this, this.props.todo.id)}
                           className={classes.join(' ')}
                     >
-                        {props.todo.text}
+                        {this.props.todo.text}
                     </code>
-                    <div>
+                    <span>
                         <button
-                            onClick={props.favoriteItemHandler(props.todo.id)}
-                            className="btn btn-sm btn-outline-success" type="button">Favorite
+                            onClick={this.props.onFavorite.bind(this, this.props.todo.id)}
+                            className="btn btn-sm btn-outline-success mr-1" type="button">
+                            <i className='fa fa-exclamation'/>
                         </button>
-                        <button onClick={props.deleteItemHandler(props.todo.id)}
-                                className="btn-sm btn btn-outline-danger" type="button">Delete
+                        <button
+                            onClick={this.props.deleteItem.bind(this, this.props.todo.id)}
+                            className="btn-sm btn btn-outline-danger"
+                            type="button"
+                        >
+                            <i className='fa fa-trash'/>
                         </button>
-                    </div>
-                </div>
-            </li>
-        </div>
-    );
-
+                    </span>
+                </span>
+            </>
+        );
+    }
 }
 
-export default TodoListItem;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteItem: (key) => dispatch(deleteItem(key)),
+        onDone: (key) => dispatch(onDone(key)),
+        onFavorite: (key) => dispatch(onFavorite(key)),
+    }
+}
+export default connect(null, mapDispatchToProps)(TodoListItem);
