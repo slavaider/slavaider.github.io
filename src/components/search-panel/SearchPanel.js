@@ -31,7 +31,7 @@ class SearchPanel extends React.Component {
 
     render() {
         return (
-            <div className="SearchPanel m-2">
+            <div className="SearchPanel mb-2">
                 <div className="input-group">
                     <input type="text" value={this.state.text} onChange={this.onChangeText} className="form-control"
                            placeholder="Search"/>

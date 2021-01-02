@@ -13,27 +13,26 @@ class TodoList extends React.Component {
             filter_type: '',
             filter_text: '',
             todos: [
-                {text: 'awdadawdpwokadpwadaw1', classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw2', classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw3', classes: [{done: false, favorite: false}]},
-                {text: 'awdadawdpwokadpwadaw4', classes: [{done: false, favorite: false}]},
+                {text: 'awdadawdpwokadpwadaw1', id: Math.random(), classes: [{done: false, favorite: false}]},
+                {text: 'awdadawdpwokadpwadaw2', id: Math.random(), classes: [{done: false, favorite: false}]},
+                {text: 'awdadawdpwokadpwadaw3', id: Math.random(), classes: [{done: false, favorite: false}]},
+                {text: 'awdadawdpwokadpwadaw4', id: Math.random(), classes: [{done: false, favorite: false}]},
             ],
-
         }
     }
 
     deleteItem = (key) => {
-        this.setState({todos: this.state.todos.filter((todo, index) => index !== key)})
+        this.setState({todos: this.state.todos.filter(todo => todo.id !== key)})
     }
     onDone = (key) => {
         const todos = this.state.todos
-        const todo = todos[key]
+        const todo = todos.find((todo) => todo.id === key)
         todo.classes.done = true
         this.setState({todos})
     }
     onFavorite = (key) => {
         const todos = this.state.todos
-        const todo = todos[key]
+        const todo = todos.find((todo) => todo.id === key)
         todo.classes.favorite = true
         this.setState({todos})
     }
@@ -61,27 +60,27 @@ class TodoList extends React.Component {
         }).filter(todo => {
             return todo.text.indexOf(this.state.filter_text) !== -1
         })
-        //
+
         return (
             <div className="TodoList mt-2">
                 <div className="d-flex justify-content-between">
                     <h1>TodoApp</h1>
-                    <AppHeader/>
+                    <AppHeader todos={this.state.todos}/>
                 </div>
                 <SearchPanel onFilterHandler={(filter) => this.onFilter(filter)}/>
                 <ul className='list-group'>
-                    {filteredTodos.map(((todo, index) =>
-                            (
-                                <TodoListItem
-                                    deleteItemHandler={(key) => this.deleteItem.bind(this, key)}
-                                    doneItemHandler={(key) => this.onDone.bind(this, key)}
-                                    favoriteItemHandler={(key) => this.onFavorite.bind(this, key)}
-                                    key={index}
-                                    index={index}
-                                    todo={todo}
-                                />
-                            )
-                    ))
+                    {filteredTodos.length !== 0 ?
+                        filteredTodos.map((todo =>
+                                (
+                                    <TodoListItem
+                                        deleteItemHandler={(key) => this.deleteItem.bind(this, key)}
+                                        doneItemHandler={(key) => this.onDone.bind(this, key)}
+                                        favoriteItemHandler={(key) => this.onFavorite.bind(this, key)}
+                                        key={todo.id}
+                                        todo={todo}
+                                    />
+                                )
+                        )) : <h3 className='text-center'>Нет найденных элементов</h3>
                     }
                 </ul>
                 <AppAddForm onAddItemHandler={(todo) => this.onAddItem(todo)}/>

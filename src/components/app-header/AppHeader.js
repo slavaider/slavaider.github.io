@@ -1,10 +1,11 @@
 import './AppHeader.css';
 import React from "react";
 
-const AppHeader = () => {
+const AppHeader = (props) => {
     return (
-        <div className="AppHeader">
-            TODOS 0 of 5
+        <div style={{marginTop: 15}} className="AppHeader">
+            {props.todos.filter(todo => !todo.classes.done).length} more to
+            do, {props.todos.filter(todo => todo.classes.done).length} done
         </div>
     );
 }
