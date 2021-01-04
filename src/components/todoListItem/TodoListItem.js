@@ -5,30 +5,30 @@ import {connect} from "react-redux";
 
 class TodoListItem extends React.Component {
     render() {
-        const classes = ['col-8', 'formatted']
-        if (this.props.done) {
+        const classes = ['col-9', 'formatted']
+        if (this.props.todo.classes.done) {
             classes.push('done')
         }
-        if (this.props.favorite) {
+        if (this.props.todo.classes.favorite) {
             classes.push('favorite')
         }
         return (
             <>
                 <span className="d-flex justify-content-between">
                     <code style={{cursor: 'pointer'}}
-                          onClick={this.props.onDone.bind(this, this.props.todo.id)}
+                          onClick={()=>this.props.onDone(this.props.todo.id)}
                           className={classes.join(' ')}
                     >
                         {this.props.todo.text}
                     </code>
                     <span>
                         <button
-                            onClick={this.props.onFavorite.bind(this, this.props.todo.id)}
+                            onClick={()=>this.props.onFavorite(this.props.todo.id)}
                             className="btn btn-sm btn-outline-success mr-1" type="button">
                             <i className='fa fa-exclamation'/>
                         </button>
                         <button
-                            onClick={this.props.deleteItem.bind(this, this.props.todo.id)}
+                            onClick={()=>this.props.deleteItem(this.props.todo.id)}
                             className="btn-sm btn btn-outline-danger"
                             type="button"
                         >

@@ -35,7 +35,7 @@ class SearchPanel extends React.Component {
                 <div className="input-group">
                     <input type="text" value={this.state.text} onChange={this.onChangeText} className="form-control"
                            placeholder="Search"/>
-                    <ItemStatusFilter onClickHandler={(type) => this.onFilter.bind(this, type)}/>
+                    <ItemStatusFilter onClickHandler={(type) => this.onFilter(type)}/>
                 </div>
             </div>
         );

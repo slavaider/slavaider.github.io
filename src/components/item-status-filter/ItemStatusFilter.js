@@ -1,12 +1,52 @@
 import './ItemStatusFilter.css';
 import React from "react";
 
-const ItemStatusFilter = (props) => (
-    <div className="ItemStatusFilter">
-        <button className="btn btn-success" onClick={props.onClickHandler('all')} type="button">All</button>
-        <button className="btn btn-success" onClick={props.onClickHandler('favorite')} type="button">Favorite</button>
-        <button className="btn btn-success" onClick={props.onClickHandler('done')} type="button">Done</button>
-    </div>
-)
+class ItemStatusFilter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            all: true,
+            favorite: false,
+            done: false
+        }
+    }
+
+    changeFilter = (filter) => {
+        const reset = this.state
+        Object.keys(reset).map((key) => {
+            return reset[key]=false
+        })
+        reset[filter]=true
+        this.setState({reset})
+        this.props.onClickHandler(filter)
+    }
+
+    render() {
+        return (
+            <div className="ItemStatusFilter">
+                <div className="btn-group" role="group">
+                    <button
+                        className={[this.state.all ? 'active' : null, 'btn', 'btn-info', 'ml-1', 'mr-1'].join(' ')}
+                        onClick={() => this.changeFilter('all')}
+                        type="button"
+                    >All
+                    </button>
+                    <button
+                        className={[this.state.favorite ? 'active' : null, 'btn', 'btn-info', 'mr-1'].join(' ')}
+                        onClick={() => this.changeFilter('favorite')}
+                        type="button"
+                    >Favorite
+                    </button>
+                    <button
+                        className={[this.state.done ? 'active' : null, 'btn', 'btn-info'].join(' ')}
+                        onClick={() => this.changeFilter('done')}
+                        type="button"
+                    >Done
+                    </button>
+                </div>
+            </div>
+        )
+    }
+}
 
 export default ItemStatusFilter;

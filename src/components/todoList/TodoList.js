@@ -21,6 +21,7 @@ class TodoList extends React.Component {
     }
 
     render() {
+
         const filtered_todo_list = this.props.todos.filter((todo) => {
             switch (this.state.filter_type) {
                 case'favorite':
@@ -33,6 +34,7 @@ class TodoList extends React.Component {
         }).filter(todo => {
             return todo.text.indexOf(this.state.filter_text) !== -1
         })
+
         return (
             <div className="TodoList mt-2">
                 <AppHeader todos={this.props.todos}/>
@@ -42,9 +44,7 @@ class TodoList extends React.Component {
                         filtered_todo_list.map((todo => (
                                 <li key={todo.id} className="list-group-item">
                                     <TodoListItem
-                                        favorite={todo.classes.favorite}
-                                        done={todo.classes.done}
-                                        todo={todo}
+                                        todo={{...todo}}
                                     />
                                 </li>
                             )
