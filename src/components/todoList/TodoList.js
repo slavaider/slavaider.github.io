@@ -21,18 +21,17 @@ class TodoList extends React.Component {
     }
 
     render() {
-
         const filtered_todo_list = this.props.todos.filter((todo) => {
             switch (this.state.filter_type) {
-                case'favorite':
-                    return todo.classes.favorite
+                case'active':
+                    return !todo.classes.done
                 case'done':
                     return todo.classes.done
                 default:
                     return todo
             }
         }).filter(todo => {
-            return todo.text.indexOf(this.state.filter_text) !== -1
+            return todo.text.toLowerCase().indexOf(this.state.filter_text.toLowerCase()) !== -1
         })
 
         return (

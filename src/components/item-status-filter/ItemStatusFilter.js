@@ -6,7 +6,7 @@ class ItemStatusFilter extends React.Component {
         super(props);
         this.state = {
             all: true,
-            favorite: false,
+            active: false,
             done: false
         }
     }
@@ -32,10 +32,10 @@ class ItemStatusFilter extends React.Component {
                     >All
                     </button>
                     <button
-                        className={[this.state.favorite ? 'active' : null, 'btn', 'btn-info', 'mr-1'].join(' ')}
-                        onClick={() => this.changeFilter('favorite')}
+                        className={[this.state.active ? 'active' : null, 'btn', 'btn-info', 'mr-1'].join(' ')}
+                        onClick={() => this.changeFilter('active')}
                         type="button"
-                    >Favorite
+                    >Active
                     </button>
                     <button
                         className={[this.state.done ? 'active' : null, 'btn', 'btn-info'].join(' ')}

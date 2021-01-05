@@ -18,10 +18,10 @@ class AppAddForm extends React.Component {
     render() {
         return (
             <div className="AppAddForm mt-2">
-                <form onSubmit={(event) => this.onSubmit(event)} className="form">
+                <form onSubmit={this.onSubmit} className="form">
                     <div className="input-group">
                         <textarea name='text' style={{resize: 'none'}} className='form-control'/>
-                        <button type='submit' className="btn btn-success">Add</button>
+                        <button type='submit' className="btn btn-success ml-1">Add</button>
                     </div>
                 </form>
             </div>

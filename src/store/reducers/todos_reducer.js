@@ -2,10 +2,10 @@ import {DELETE_ITEM, ON_ADD_TODO, ON_DONE, ON_FAVORITE} from "../actions/action_
 
 const initialState = {
     todo_list: [
-        {text: '1', id: Math.random(), classes: {done: true, favorite: true}},
-        {text: '2', id: Math.random(), classes: {done: false, favorite: false}},
-        {text: '3', id: Math.random(), classes: {done: false, favorite: false}},
-        {text: '4', id: Math.random(), classes: {done: false, favorite: false}},
+        {text: 'Drink Coffee', id: Math.random(), classes: {done: false, favorite: false}},
+        {text: 'Make app', id: Math.random(), classes: {done: false, favorite: false}},
+        {text: 'Drink Tea', id: Math.random(), classes: {done: false, favorite: false}},
+        {text: 'Have a lunch', id: Math.random(), classes: {done: false, favorite: false}},
     ]
 }
 
@@ -35,8 +35,7 @@ export default function TodoListReducer(state = initialState, action) {
             }
         }
         case ON_ADD_TODO: {
-            const todo_list = [...state.todo_list]
-            todo_list.push(action.todo)
+            const todo_list = [...state.todo_list,action.todo]
             return {
                 ...state,
                 todo_list
