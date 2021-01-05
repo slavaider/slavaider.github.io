@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build&&gh-pages -d build"
+    "deploy": "yarn build&&gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -29,7 +29,7 @@
       "react-app/jest"
     ]
   },
-  "homepage" : "http://<username>.github.io/<reponame>",
+  "homepage" : "http://slavaider.github.io/03_todo_v2",
   "browserslist": {
     "production": [
       ">0.2%",
