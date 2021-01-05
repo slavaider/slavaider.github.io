@@ -29,7 +29,7 @@
       "react-app/jest"
     ]
   },
-  "homepage" : "http://slavaider.github.io/03_todo_v2",
+  "homepage" : "http://slavaider.github.io/todo_v2",
   "browserslist": {
     "production": [
       ">0.2%",
